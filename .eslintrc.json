@@ -1,0 +1,29 @@
+{
+  "root": true,
+  "extends": ["next/core-web-vitals"],
+  "parser": "@typescript-eslint/parser",
+  "plugins": ["testing-library", "@typescript-eslint"],
+  "overrides": [
+    {
+      "files": [
+        "**/test/**/*.[jt]s?(x)",
+        "**/?(*.)+(spec|test).[jt]s?(x)"
+      ],
+      "extends": ["plugin:testing-library/react"]
+    }
+  ],
+  "rules": {
+    "react/display-name": "off",
+    "react/jsx-no-target-blank": "off",
+    "react/no-unescaped-entities": "off",
+    "import/no-anonymous-default-export": "off",
+    "@typescript-eslint/no-shadow": ["error"],
+    "@typescript-eslint/semi": ["error", "never"],
+    "@typescript-eslint/no-unused-vars": [
+      "warn", {
+        "vars": "all",
+        "args": "none",
+        "ignoreRestSiblings": false
+      }]
+  }
+}

@@ -1,0 +1,24 @@
+@import './theme/chrome_autofill';
+// https://github.com/ant-design/ant-design/blob/master/components/style/themes/variable.less
+
+@primary-color: #58BA89;
+@secondary-color: #58355E;
+@menu-dark-bg: #2C2C2C;
+@layout-sider-background: #2C2C2C;
+@input-hover-border-color: #01575C;
+@table-header-bg: #e6e6e6;
+@table-border-color: #d8d8d8;
+@table-row-hover-bg: #f5fdf9;
+
+.ant-input:focus,
+.ant-input-focused,
+.ant-input-affix-wrapper:focus,
+.ant-input-affix-wrapper-focused {
+  border-color: @input-hover-border-color;
+  box-shadow: 0 0 0 2px fade(@input-hover-border-color, @outline-fade);
+}
+
+::selection {
+  color: #fff;
+  background: #01575C;
+}
