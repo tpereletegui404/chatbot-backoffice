@@ -1,0 +1,7 @@
+#!/bin/sh
+if [ ! -d "tools/console/node_modules" ]
+then
+  yarn --cwd tools/console install
+fi
+
+yarn --cwd tools/console start "$@"
