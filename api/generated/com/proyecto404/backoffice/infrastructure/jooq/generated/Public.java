@@ -4,12 +4,14 @@
 package com.proyecto404.backoffice.infrastructure.jooq.generated;
 
 
+import com.proyecto404.backoffice.infrastructure.jooq.generated.tables.ChatbotConfigurations;
 import com.proyecto404.backoffice.infrastructure.jooq.generated.tables.FlywaySchemaHistory;
 
 import java.util.Arrays;
 import java.util.List;
 
 import org.jooq.Catalog;
+import org.jooq.Sequence;
 import org.jooq.Table;
 import org.jooq.impl.SchemaImpl;
 
@@ -26,6 +28,11 @@ public class Public extends SchemaImpl {
      * The reference instance of <code>public</code>
      */
     public static final Public PUBLIC = new Public();
+
+    /**
+     * The table <code>public.chatbot_configurations</code>.
+     */
+    public final ChatbotConfigurations CHATBOT_CONFIGURATIONS = ChatbotConfigurations.CHATBOT_CONFIGURATIONS;
 
     /**
      * The table <code>public.flyway_schema_history</code>.
@@ -46,8 +53,16 @@ public class Public extends SchemaImpl {
     }
 
     @Override
+    public final List<Sequence<?>> getSequences() {
+        return Arrays.asList(
+            Sequences.CHATBOT_CONFIGURATIONS_ID_SEQ
+        );
+    }
+
+    @Override
     public final List<Table<?>> getTables() {
         return Arrays.asList(
+            ChatbotConfigurations.CHATBOT_CONFIGURATIONS,
             FlywaySchemaHistory.FLYWAY_SCHEMA_HISTORY
         );
     }

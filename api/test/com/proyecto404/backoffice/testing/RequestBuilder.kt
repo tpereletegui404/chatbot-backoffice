@@ -1,7 +1,7 @@
 package com.proyecto404.backoffice.testing
 
 import com.nbottarini.asimov.json.values.JsonValue
-import com.proyecto404.backoffice.modules.security.domain.User
+import com.proyecto404.backoffice.core.security.domain.User
 import io.restassured.RestAssured
 import io.restassured.response.Response
 import io.restassured.response.ValidatableResponse

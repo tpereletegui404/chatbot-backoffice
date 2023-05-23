@@ -3,17 +3,17 @@ package com.proyecto404.backoffice.e2e.testing
 import com.nbottarini.asimov.cqbus.CQBus
 import com.nbottarini.asimov.time.Clock
 import com.proyecto404.backoffice.http.HttpApp
-import com.proyecto404.backoffice.modules.common.Core
-import com.proyecto404.backoffice.modules.common.base.data.jdbc.dataSource
-import com.proyecto404.backoffice.modules.common.base.http.server.HttpServer
-import com.proyecto404.backoffice.modules.common.base.integration.eventBus.InProcessEventBus
-import com.proyecto404.backoffice.modules.common.base.transactions.Transaction
-import com.proyecto404.backoffice.modules.common.domain.DateExamples.now
-import com.proyecto404.backoffice.modules.common.domain.ScenarioBuilder
-import com.proyecto404.backoffice.modules.common.infrastructure.persistence.DatabaseInitializer
-import com.proyecto404.backoffice.modules.security.app.authorization.Roles
-import com.proyecto404.backoffice.modules.security.domain.user
-import com.proyecto404.backoffice.modules.security.infrastructure.passwords.SHA512PasswordEncryptor
+import com.proyecto404.backoffice.Core
+import com.proyecto404.backoffice.base.data.jdbc.dataSource
+import com.proyecto404.backoffice.base.http.server.HttpServer
+import com.proyecto404.backoffice.base.integration.eventBus.InProcessEventBus
+import com.proyecto404.backoffice.base.transactions.Transaction
+import com.proyecto404.backoffice.core.common.domain.DateExamples.now
+import com.proyecto404.backoffice.core.common.domain.ScenarioBuilder
+import com.proyecto404.backoffice.base.infrastructure.persistence.DatabaseInitializer
+import com.proyecto404.backoffice.core.security.app.authorization.Roles
+import com.proyecto404.backoffice.core.security.domain.user
+import com.proyecto404.backoffice.core.security.infrastructure.passwords.SHA512PasswordEncryptor
 import org.junit.jupiter.api.AfterEach
 import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.Tag
@@ -39,7 +39,7 @@ abstract class BaseApiTest {
     fun request() = RequestBuilder(baseUrl)
 
     private fun createCoreConfig(): Core.Config {
-        val dataSource = dataSource {
+        val dataSource = com.proyecto404.backoffice.base.data.jdbc.dataSource {
             dbCredentialsFromEnv("TEST_DB")
             simpleDbConnections()
             simpleTransactions()

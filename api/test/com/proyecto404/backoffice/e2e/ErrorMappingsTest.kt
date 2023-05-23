@@ -5,17 +5,17 @@ import com.nbottarini.asimov.cqbus.CQBus
 import com.nbottarini.asimov.cqbus.requests.Request
 import com.proyecto404.backoffice.e2e.testing.RequestBuilder
 import com.proyecto404.backoffice.http.HttpApp
-import com.proyecto404.backoffice.modules.common.Core
-import com.proyecto404.backoffice.modules.common.base.data.jdbc.dataSource
-import com.proyecto404.backoffice.modules.common.base.domain.errors.DomainError
-import com.proyecto404.backoffice.modules.common.base.domain.errors.NotFoundError
-import com.proyecto404.backoffice.modules.common.base.http.server.HttpServer
-import com.proyecto404.backoffice.modules.common.base.http.server.controllers.errors.ParameterError
-import com.proyecto404.backoffice.modules.common.base.integration.eventBus.InProcessEventBus
-import com.proyecto404.backoffice.modules.common.base.transactions.Transaction
-import com.proyecto404.backoffice.modules.common.infrastructure.persistence.DatabaseInitializer
-import com.proyecto404.backoffice.modules.common.base.auth.NotAuthenticatedError
-import com.proyecto404.backoffice.modules.common.base.auth.UnauthorizedAccessError
+import com.proyecto404.backoffice.Core
+import com.proyecto404.backoffice.base.data.jdbc.dataSource
+import com.proyecto404.backoffice.base.domain.errors.DomainError
+import com.proyecto404.backoffice.base.domain.errors.NotFoundError
+import com.proyecto404.backoffice.base.http.server.HttpServer
+import com.proyecto404.backoffice.base.http.server.controllers.errors.ParameterError
+import com.proyecto404.backoffice.base.integration.eventBus.InProcessEventBus
+import com.proyecto404.backoffice.base.transactions.Transaction
+import com.proyecto404.backoffice.base.infrastructure.persistence.DatabaseInitializer
+import com.proyecto404.backoffice.base.auth.NotAuthenticatedError
+import com.proyecto404.backoffice.base.auth.UnauthorizedAccessError
 import io.mockk.every
 import io.mockk.mockk
 import org.hamcrest.CoreMatchers.equalTo
@@ -30,7 +30,7 @@ import org.junit.jupiter.api.Test
 class ErrorMappingsTest {
     @Test
     fun `not authenticated`() {
-        every { cqBus.execute(any<Request<*>>(), any()) } throws NotAuthenticatedError()
+        every { cqBus.execute(any<Request<*>>(), any()) } throws com.proyecto404.backoffice.base.auth.NotAuthenticatedError()
 
         val response = execSomeCommand()
 
@@ -41,7 +41,7 @@ class ErrorMappingsTest {
 
     @Test
     fun `unauthorized access`() {
-        every { cqBus.execute(any<Request<*>>(), any()) } throws UnauthorizedAccessError()
+        every { cqBus.execute(any<Request<*>>(), any()) } throws com.proyecto404.backoffice.base.auth.UnauthorizedAccessError()
 
         val response = execSomeCommand()
 
@@ -119,7 +119,7 @@ class ErrorMappingsTest {
     }
 
     private fun createCoreConfig(): Core.Config {
-        val dataSource = dataSource {
+        val dataSource = com.proyecto404.backoffice.base.data.jdbc.dataSource {
             dbCredentialsFromEnv("TEST_DB")
             simpleDbConnections()
             simpleTransactions()

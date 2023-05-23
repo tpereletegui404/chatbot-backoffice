@@ -2,7 +2,7 @@ package com.proyecto404.backoffice.e2e.testing
 
 import com.nbottarini.asimov.json.Json
 import com.nbottarini.asimov.json.values.JsonValue
-import com.proyecto404.backoffice.modules.common.base.domain.Id
+import com.proyecto404.backoffice.base.domain.Id
 import io.restassured.response.ValidatableResponse
 import io.restassured.specification.RequestSpecification
 import org.hamcrest.CoreMatchers

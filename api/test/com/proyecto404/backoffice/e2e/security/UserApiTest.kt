@@ -4,10 +4,10 @@ import com.nbottarini.asimov.json.Json
 import com.proyecto404.backoffice.e2e.testing.BaseApiTest
 import com.proyecto404.backoffice.e2e.testing.returningId
 import com.proyecto404.backoffice.e2e.testing.succeeds
-import com.proyecto404.backoffice.modules.common.base.domain.Id
-import com.proyecto404.backoffice.modules.security.domain.User
-import com.proyecto404.backoffice.modules.security.domain.UserExamples.alice
-import com.proyecto404.backoffice.modules.security.domain.users
+import com.proyecto404.backoffice.base.domain.Id
+import com.proyecto404.backoffice.core.security.domain.User
+import com.proyecto404.backoffice.core.security.domain.UserExamples.alice
+import com.proyecto404.backoffice.core.security.domain.users
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.Disabled
 import org.junit.jupiter.api.Test

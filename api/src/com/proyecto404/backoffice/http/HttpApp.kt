@@ -1,16 +1,17 @@
 package com.proyecto404.backoffice.http
 
 import com.google.gson.JsonParseException
-import com.proyecto404.backoffice.modules.common.Core
-import com.proyecto404.backoffice.modules.common.base.auth.NotAuthenticatedError
-import com.proyecto404.backoffice.modules.common.base.auth.UnauthorizedAccessError
-import com.proyecto404.backoffice.modules.common.base.domain.errors.DomainError
-import com.proyecto404.backoffice.modules.common.base.domain.errors.NotFoundError
-import com.proyecto404.backoffice.modules.common.base.http.server.HttpServer
-import com.proyecto404.backoffice.modules.common.base.http.server.httpCQDispatcher.HttpCQDispatcher
-import com.proyecto404.backoffice.modules.common.http.StatusController
-import com.proyecto404.backoffice.modules.security.http.SecurityController
-import com.proyecto404.backoffice.modules.security.http.SessionTokenAuthenticationMiddleware
+import com.proyecto404.backoffice.Core
+import com.proyecto404.backoffice.base.auth.NotAuthenticatedError
+import com.proyecto404.backoffice.base.auth.UnauthorizedAccessError
+import com.proyecto404.backoffice.base.domain.errors.DomainError
+import com.proyecto404.backoffice.base.domain.errors.NotFoundError
+import com.proyecto404.backoffice.base.http.server.HttpServer
+import com.proyecto404.backoffice.base.http.server.httpCQDispatcher.HttpCQDispatcher
+import com.proyecto404.backoffice.http.controllers.StatusController
+import com.proyecto404.backoffice.http.controllers.SecurityController
+import com.proyecto404.backoffice.core.security.http.SessionTokenAuthenticationMiddleware
+import com.proyecto404.backoffice.http.controllers.ChatbotController
 
 class HttpApp(private val config: Config) {
     private val httpServer = config.httpServer
@@ -29,18 +30,19 @@ class HttpApp(private val config: Config) {
     private fun registerControllers() = httpServer.registerControllers(
         StatusController(httpServer),
         SecurityController(requestDispatcher),
+        ChatbotController(requestDispatcher),
     )
 
     private fun registerExceptionHandlers() = with(httpServer) {
-        registerException<NotAuthenticatedError>(::notAuthenticatedErrorHandler)
-        registerException<UnauthorizedAccessError>(::forbiddenErrorHandler)
+        registerException<com.proyecto404.backoffice.base.auth.NotAuthenticatedError>(::notAuthenticatedErrorHandler)
+        registerException<com.proyecto404.backoffice.base.auth.UnauthorizedAccessError>(::forbiddenErrorHandler)
         registerException<NotFoundError>(::notFoundErrorHandler)
         registerException<DomainError>(::badRequestJsonErrorHandler)
         registerException<JsonParseException>(::badRequestJsonErrorHandler)
     }
 
     private fun registerMiddlewares() {
-        config.core.registerMiddleware(SessionTokenAuthenticationMiddleware())
+//        config.core.registerMiddleware(SessionTokenAuthenticationMiddleware())
     }
 
     fun start() = httpServer.start()

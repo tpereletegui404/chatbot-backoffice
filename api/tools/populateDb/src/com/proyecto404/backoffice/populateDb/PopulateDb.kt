@@ -1,11 +1,11 @@
 package com.proyecto404.backoffice.populateDb
 
-import com.proyecto404.backoffice.modules.common.base.data.jdbc.connectionFactory.credentials.JdbcCredentials
-import com.proyecto404.backoffice.modules.common.base.data.jooq.jooqConfiguration
-import com.proyecto404.backoffice.modules.common.base.data.repositories.RepositoryProvider
-import com.proyecto404.backoffice.modules.common.domain.ScenarioBuilder
-import com.proyecto404.backoffice.modules.common.infrastructure.persistence.jooq.JooqRepositoryProvider
-import com.proyecto404.backoffice.modules.security.infrastructure.passwords.SHA512PasswordEncryptor
+import com.proyecto404.backoffice.base.data.jdbc.connectionFactory.credentials.JdbcCredentials
+import com.proyecto404.backoffice.base.data.jooq.jooqConfiguration
+import com.proyecto404.backoffice.base.data.repositories.RepositoryProvider
+import com.proyecto404.backoffice.core.common.domain.ScenarioBuilder
+import com.proyecto404.backoffice.base.infrastructure.persistence.jooq.JooqRepositoryProvider
+import com.proyecto404.backoffice.core.security.infrastructure.passwords.SHA512PasswordEncryptor
 import com.proyecto404.backoffice.populateDb.scenarios.DefaultScenario
 
 class PopulateDb {
