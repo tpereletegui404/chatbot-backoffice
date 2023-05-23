@@ -1,7 +1,6 @@
 /* eslint-disable eqeqeq */
 import { Validator } from './Validator'
 import { isNullOrBlank } from './validationFunctions'
-import { Money } from '../../model/Money'
 
 export class PropertyAssertions {
     private readonly name: string
@@ -130,17 +129,6 @@ export class PropertyAssertions {
         }
         this.processValidation(isValid, errorMessage || (`${this.name} debe ser una fecha válida`))
         return this
-    }
-
-    money(errorMessage?: string): PropertyAssertions {
-        const isValid = this.isValidMoney()
-        this.processValidation(isValid, errorMessage || (this.name + ' debe representar dinero'))
-        return this
-    }
-
-    private isValidMoney() {
-        try { Money.of(this.value) } catch (e) { return false }
-        return true
     }
 
     private processValidation(isValid: boolean, errorMessage: string) {

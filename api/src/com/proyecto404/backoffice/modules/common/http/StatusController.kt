@@ -14,7 +14,7 @@ class StatusController(private val httpServer: HttpServer): Controller {
 
     private fun status(ctx: Context) {
         ctx.jsonObj(
-            "name" to "finanz api",
+            "name" to "chatbot-backoffice api",
             "uid" to httpServer.uid,
             "version" to ApplicationVersion().toString(),
             "status" to "OK",
