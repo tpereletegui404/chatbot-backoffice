@@ -20,7 +20,6 @@ export const AppLayout: FC<Props> = (props) => {
                         {props.children}
                     </div>
                 </div>
-                <Footer />
             </div>
         </AppLayoutConfigProvider>
     )
