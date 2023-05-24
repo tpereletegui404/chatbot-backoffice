@@ -4,7 +4,6 @@ import com.nbottarini.asimov.cqbus.CQBus
 import com.nbottarini.asimov.cqbus.ExecutionContext
 import com.nbottarini.asimov.cqbus.Middleware
 import com.nbottarini.asimov.cqbus.requests.Request
-import com.proyecto404.backoffice.core.accounting.AccountingModule
 import com.proyecto404.backoffice.base.data.jdbc.DataSource
 import com.proyecto404.backoffice.base.data.jooq.JooqConfiguration
 import com.proyecto404.backoffice.base.infrastructure.cqbus.LoggingMiddleware
@@ -15,6 +14,7 @@ import com.proyecto404.backoffice.base.integration.application.CQDispatcher
 import com.proyecto404.backoffice.base.integration.eventBus.Event
 import com.proyecto404.backoffice.base.integration.eventBus.EventBus
 import com.proyecto404.backoffice.core.app.AddContext
+import com.proyecto404.backoffice.core.app.GetConfiguration
 import com.proyecto404.backoffice.core.security.app.CreateUser
 import com.proyecto404.backoffice.core.security.app.Login
 import com.proyecto404.backoffice.core.security.domain.sessionToken.UUIDSessionTokenFactory
@@ -31,7 +31,6 @@ class Core(val config: Config): CQDispatcher {
 
     init {
         config.databaseInitializer.run()
-//        initializeModules(config, services)
         initializeMiddlewares()
         registerHandlers()
     }
@@ -40,11 +39,7 @@ class Core(val config: Config): CQDispatcher {
         registerHandler { CreateUser.Handler(services.repositories, saltGenerator, passwordEncryptor) }
         registerHandler { Login.Handler(services.repositories, passwordEncryptor, sessionTokenFactory) }
         registerHandler { AddContext.Handler(services.repositories) }
-    }
-
-    private fun initializeModules(config: Config, services: Services) {
-        AccountingModule(config, services)
-//        SecurityModule(config, services)
+        registerHandler { GetConfiguration.Handler(services.repositories) }
     }
 
     private fun initializeMiddlewares() = with(config.cqBus) {
