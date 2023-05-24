@@ -3,14 +3,14 @@ package com.proyecto404.backoffice.core.domain
 import com.proyecto404.backoffice.base.domain.Id
 
 class ChatbotConfiguration(
-    val id: Id<ChatbotConfiguration>,
-    val apiKey: String? = null,
+    var id: Id<ChatbotConfiguration>,
+    var apiKey: String? = null,
     var context: String? = null,
-    val maxTokens: Int,
-    val temperature: Double,
-    val topP: Double,
-    val frequencyPenalty: Int,
-    val parameterPresencePenalty: Int
+    var maxTokens: Int,
+    var temperature: Double,
+    var topP: Double,
+    var frequencyPenalty: Int,
+    var parameterPresencePenalty: Int
     ) {
 
     fun addContext(newContext: String) {

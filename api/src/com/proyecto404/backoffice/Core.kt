@@ -16,6 +16,7 @@ import com.proyecto404.backoffice.base.integration.eventBus.EventBus
 import com.proyecto404.backoffice.core.app.AddContext
 import com.proyecto404.backoffice.core.app.CreateConfiguration
 import com.proyecto404.backoffice.core.app.GetConfiguration
+import com.proyecto404.backoffice.core.app.UpdateConfiguration
 import com.proyecto404.backoffice.core.security.app.CreateUser
 import com.proyecto404.backoffice.core.security.app.Login
 import com.proyecto404.backoffice.core.security.domain.sessionToken.UUIDSessionTokenFactory
@@ -42,6 +43,7 @@ class Core(val config: Config): CQDispatcher {
         registerHandler { AddContext.Handler(services.repositories) }
         registerHandler { GetConfiguration.Handler(services.repositories) }
         registerHandler { CreateConfiguration.Handler(services.repositories) }
+        registerHandler { UpdateConfiguration.Handler(services.repositories) }
     }
 
     private fun initializeMiddlewares() = with(config.cqBus) {

@@ -3,6 +3,7 @@ package com.proyecto404.backoffice.e2e
 import com.nbottarini.asimov.json.Json
 import com.proyecto404.backoffice.base.domain.Id
 import com.proyecto404.backoffice.core.domain.ChatbotConfiguration
+import com.proyecto404.backoffice.core.domain.chatbotConfigurationExample
 import com.proyecto404.backoffice.core.domain.chatbotConfigurations
 import com.proyecto404.backoffice.e2e.testing.BaseApiTest
 import com.proyecto404.backoffice.e2e.testing.succeeds
@@ -31,17 +32,19 @@ class ChatbotApiTest: BaseApiTest() {
         assertEqualsResponseBody(response, configuration)
     }
 
+    @Test
+    fun update() {
+        addChatbotConfiguration()
+
+        val response = request().asAnonymous().put("/configuration", addContextJson).exec()
+
+        response.assertThat().succeeds(200)
+        val updated = getChatbotConfiguration()
+        assertEqualsChatbotExample(updated)
+    }
+
     private fun addChatbotConfiguration(): ChatbotConfiguration {
-        val configuration = ChatbotConfiguration(
-            Id(1),
-            "some key",
-            "some context",
-            20,
-            0.5,
-            0.4,
-            1,
-            1
-        )
+        val configuration = ChatbotConfiguration(Id(1), "some key", "some context", 20, 0.5, 0.4, 1, 1)
         repositories.chatbotConfigurations().add(configuration)
         return configuration
     }
@@ -54,6 +57,7 @@ class ChatbotApiTest: BaseApiTest() {
         assertThat(chatbotConfiguration.frequencyPenalty).isEqualTo(addContextJson["frequencyPenalty"]?.asInt())
         assertThat(chatbotConfiguration.temperature).isEqualTo(addContextJson["temperature"]?.asDouble())
         assertThat(chatbotConfiguration.parameterPresencePenalty).isEqualTo(addContextJson["parameterPresencePenalty"]?.asInt())
+        assertThat(chatbotConfiguration.maxTokens).isEqualTo(addContextJson["maxTokens"]?.asInt())
     }
 
     private fun assertEqualsResponseBody(response: ValidatableResponse, config: ChatbotConfiguration) {
@@ -62,16 +66,17 @@ class ChatbotApiTest: BaseApiTest() {
         assertThat(response.body("frequencyPenalty", equalTo(config.frequencyPenalty)))
         assertThat(response.body("temperature", equalTo(config.temperature.toFloat())))
         assertThat(response.body("parameterPresencePenalty", equalTo(config.parameterPresencePenalty)))
+        assertThat(response.body("maxTokens", equalTo(config.maxTokens)))
     }
 
     private val addContextJson by lazy {
         Json.obj(
-            "context" to "some context",
-            "maxTokens" to 400,
-            "temperature" to 0.7,
-            "topP" to 0.2,
-            "frequencyPenalty" to 0,
-            "parameterPresencePenalty" to 0
+            "context" to chatbotConfigurationExample.context,
+            "maxTokens" to chatbotConfigurationExample.maxTokens,
+            "temperature" to chatbotConfigurationExample.temperature,
+            "topP" to chatbotConfigurationExample.topP,
+            "frequencyPenalty" to chatbotConfigurationExample.frequencyPenalty,
+            "parameterPresencePenalty" to chatbotConfigurationExample.paremeterPresencePenalty
         )
     }
 }
