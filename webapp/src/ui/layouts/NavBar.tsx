@@ -16,13 +16,13 @@ export const NavBar = () => {
                 </Link>
                 <ul className="hidden sm:flex">
                     <li className="p-4">
-                        <Link  className='hover:text-red-700' href="/context">Contexto</Link>
+                        <Link  className='hover:text-red-700' href="/">Home</Link>
                     </li>
                     <li className="p-4">
-                        <Link className='hover:text-red-700' href="/parameters">Parametros</Link>
+                        <Link className='hover:text-red-700' href="/settings">Settings</Link>
                     </li>
                     <li className="p-4">
-                        <Link className='hover:text-red-700' href="/contact">Logout</Link>
+                        <Link className='hover:text-red-700' href="/logout">Logout</Link>
                     </li>
                 </ul>
                 {/*Mobile*/}
@@ -32,19 +32,19 @@ export const NavBar = () => {
                 {/*Mobile menu*/}
                 <div
                     className={nav ? 'sm:hidden absolute top-0 left-0 right-0 bottom-0 flex ' +
-                        'justify-center items-center w-full h-screen bg-black text-center ease-in duration-300' :
+                        'justify-center items-center w-full h-screen bg-white text-center text-red-700 ease-in duration-300' :
                         'sm:hidden absolute top-0 left-[-100%] right-0 bottom-0 flex ' +
-                        'justify-center items-center w-full h-screen bg-black text-center ease-in duration-300'
+                        'justify-center items-center w-full h-screen bg-white text-center text-red-700 ease-in duration-300'
                     }>
                     <ul>
                         <li className='p-4 text-4xl hover:text-gray-500'>
                             <Link href="/">Home</Link>
                         </li>
                         <li className='p-4 text-4xl hover:text-gray-500'>
-                            <Link href="/#coaches">Coaches</Link>
+                            <Link href="/settings">Settings</Link>
                         </li>
                         <li className='p-4 text-4xl hover:text-gray-500'>
-                            <Link href="/contact">Contact</Link>
+                            <Link href="/contact">Logout</Link>
                         </li>
                     </ul>
                 </div>
