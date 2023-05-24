@@ -2,14 +2,13 @@ import { useSession } from '../components/context/SessionContext/SessionContext'
 import { FC, ReactNode } from 'react'
 import { useRouter } from 'next/router'
 import { AppLayoutConfigProvider } from './AppLayoutConfig'
-import { Footer } from './Footer'
 import { NavBar } from './NavBar'
 
 
 export const AppLayout: FC<Props> = (props) => {
     const session = useSession()
     const router = useRouter()
-    if (!session?.isAuthenticated) return <>{props.children}</>
+    // if (!session?.isAuthenticated) return <>{props.children}</>
     const currentPath = router.pathname
     return (
         <AppLayoutConfigProvider title='' selectedMenuItem={currentPath}>
@@ -20,7 +19,6 @@ export const AppLayout: FC<Props> = (props) => {
                         {props.children}
                     </div>
                 </div>
-                <Footer />
             </div>
         </AppLayoutConfigProvider>
     )
