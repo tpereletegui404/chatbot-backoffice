@@ -8,10 +8,9 @@ import com.proyecto404.backoffice.base.domain.errors.DomainError
 import com.proyecto404.backoffice.base.domain.errors.NotFoundError
 import com.proyecto404.backoffice.base.http.server.HttpServer
 import com.proyecto404.backoffice.base.http.server.httpCQDispatcher.HttpCQDispatcher
-import com.proyecto404.backoffice.http.controllers.StatusController
-import com.proyecto404.backoffice.http.controllers.SecurityController
-import com.proyecto404.backoffice.core.security.http.SessionTokenAuthenticationMiddleware
 import com.proyecto404.backoffice.http.controllers.ChatbotController
+import com.proyecto404.backoffice.http.controllers.SecurityController
+import com.proyecto404.backoffice.http.controllers.StatusController
 
 class HttpApp(private val config: Config) {
     private val httpServer = config.httpServer
@@ -34,8 +33,8 @@ class HttpApp(private val config: Config) {
     )
 
     private fun registerExceptionHandlers() = with(httpServer) {
-        registerException<com.proyecto404.backoffice.base.auth.NotAuthenticatedError>(::notAuthenticatedErrorHandler)
-        registerException<com.proyecto404.backoffice.base.auth.UnauthorizedAccessError>(::forbiddenErrorHandler)
+        registerException<NotAuthenticatedError>(::notAuthenticatedErrorHandler)
+        registerException<UnauthorizedAccessError>(::forbiddenErrorHandler)
         registerException<NotFoundError>(::notFoundErrorHandler)
         registerException<DomainError>(::badRequestJsonErrorHandler)
         registerException<JsonParseException>(::badRequestJsonErrorHandler)

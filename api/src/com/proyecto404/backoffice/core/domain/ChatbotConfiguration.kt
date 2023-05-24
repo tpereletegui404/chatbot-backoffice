@@ -13,7 +13,7 @@ class ChatbotConfiguration(
     val parameterPresencePenalty: Int
     ) {
 
-    fun replaceContext(context: String) {
-        this.context = context
+    fun addContext(newContext: String) {
+        this.context = "${this.context}\n$newContext"
     }
 }

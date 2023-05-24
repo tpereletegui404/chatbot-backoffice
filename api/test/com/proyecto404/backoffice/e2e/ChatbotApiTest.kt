@@ -14,11 +14,9 @@ import org.junit.jupiter.api.Test
 class ChatbotApiTest: BaseApiTest() {
     @Test
     fun create() {
-        addChatbotConfiguration()
+        val response = request().asAnonymous().post("/configuration", addContextJson).exec()
 
-        val response = request().asAnonymous().post("/configuration/context", addContextJson).exec()
-
-        response.assertThat().succeeds(200)
+        response.assertThat().succeeds(201)
         val chatbot = getChatbotConfiguration()
         assertEqualsChatbotExample(chatbot)
     }
@@ -52,15 +50,28 @@ class ChatbotApiTest: BaseApiTest() {
 
     private fun assertEqualsChatbotExample(chatbotConfiguration: ChatbotConfiguration) {
         assertThat(chatbotConfiguration.context).isEqualTo(addContextJson["context"]?.asString())
+        assertThat(chatbotConfiguration.topP).isEqualTo(addContextJson["topP"]?.asDouble())
+        assertThat(chatbotConfiguration.frequencyPenalty).isEqualTo(addContextJson["frequencyPenalty"]?.asInt())
+        assertThat(chatbotConfiguration.temperature).isEqualTo(addContextJson["temperature"]?.asDouble())
+        assertThat(chatbotConfiguration.parameterPresencePenalty).isEqualTo(addContextJson["parameterPresencePenalty"]?.asInt())
     }
 
     private fun assertEqualsResponseBody(response: ValidatableResponse, config: ChatbotConfiguration) {
         assertThat(response.body("context", equalTo(config.context)))
+        assertThat(response.body("topP", equalTo(config.topP.toFloat())))
+        assertThat(response.body("frequencyPenalty", equalTo(config.frequencyPenalty)))
+        assertThat(response.body("temperature", equalTo(config.temperature.toFloat())))
+        assertThat(response.body("parameterPresencePenalty", equalTo(config.parameterPresencePenalty)))
     }
 
     private val addContextJson by lazy {
         Json.obj(
             "context" to "some context",
+            "maxTokens" to 400,
+            "temperature" to 0.7,
+            "topP" to 0.2,
+            "frequencyPenalty" to 0,
+            "parameterPresencePenalty" to 0
         )
     }
 }

@@ -4,6 +4,7 @@ import com.proyecto404.backoffice.base.data.jooq.JooqConfiguration
 import com.proyecto404.backoffice.base.domain.Id
 import com.proyecto404.backoffice.core.domain.ChatbotConfiguration
 import com.proyecto404.backoffice.core.domain.ChatbotConfigurations
+import com.proyecto404.backoffice.infrastructure.jooq.generated.Sequences
 import com.proyecto404.backoffice.infrastructure.jooq.generated.tables.daos.ChatbotConfigurationsDao
 import com.proyecto404.backoffice.infrastructure.jooq.generated.tables.pojos.ChatbotConfigurationsDto
 
@@ -21,6 +22,8 @@ class JooqChatbotConfigurations(val jooq: JooqConfiguration): ChatbotConfigurati
     override fun add(configuration: ChatbotConfiguration) {
         dao.insert(configuration.toDto())
     }
+
+    override fun nextId() = Id<ChatbotConfiguration>(jooq.dsl().nextval(Sequences.CHATBOT_CONFIGURATIONS_ID_SEQ))
 
     private fun ChatbotConfigurationsDto.toChatbotConfiguration() = ChatbotConfiguration(
         Id(id),
@@ -45,3 +48,4 @@ class JooqChatbotConfigurations(val jooq: JooqConfiguration): ChatbotConfigurati
 
     }
 }
+
