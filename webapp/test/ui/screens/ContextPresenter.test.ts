@@ -10,9 +10,9 @@ import { Login } from '../../../src/core/security/app/Login'
 import { admin } from '../../core/security/models/UserExamples'
 import { newUser } from '../../core/security/models/UserBuilder'
 import each from 'jest-each'
-import { ContextPresenter } from '../../../src/ui/screens/context/ContextPresenter'
+import { ContextPresenter } from '../../../src/ui/screens/settings/context/ContextPresenter'
 import { router } from 'next/client'
-import { UpdateContext } from '../../../src/core/chatbotSettings/app/GetContext'
+import { UpdateContext } from '../../../src/core/chatbotSettings/app/UpdateContext'
 
 describe('on update context', () => {
     it('shows loader while updating context', async () => {

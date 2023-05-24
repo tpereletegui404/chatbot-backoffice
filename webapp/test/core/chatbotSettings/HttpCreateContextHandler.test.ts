@@ -4,13 +4,13 @@ import { HttpClient } from '../../../src/core/common/infrastructure/http/HttpCli
 import {
     HttpCreateContextHandler
 } from '../../../src/core/chatbotSettings/infrastructure/http/HttpCreateContextHandler'
-import { UpdateContext } from '../../../src/core/chatbotSettings/app/GetContext'
+import { UpdateContext } from '../../../src/core/chatbotSettings/app/UpdateContext'
 
 
 it('login sends post to /login', async () => {
     await handler.handle(new UpdateContext(context))
 
-    verify(httpClient.post('/context', { context })).called()
+    verify(httpClient.post('/configuration/context', { context })).called()
 })
 
 beforeEach(() => {
