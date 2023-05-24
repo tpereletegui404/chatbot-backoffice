@@ -6,6 +6,7 @@ import { HttpClient } from './common/infrastructure/http/HttpClient'
 import { HttpInterceptor } from './common/infrastructure/http/HttpInterceptor'
 import { JsonDateSerializer } from './common/base/time/JsonDateSerializer'
 import { SecurityModule } from './security/SecurityModule'
+import { ChatbotSettingsModule } from './chatbotSettings/ChatbotSettingsModule'
 
 export class Core {
     private readonly services: Services
@@ -14,6 +15,7 @@ export class Core {
         this.services = { config }
 
         new SecurityModule(this.config, this.services)
+        new ChatbotSettingsModule(this.config, this.services)
     }
 
     async execute<T extends Request<any>>(request: T, context = ExecutionContext.empty()): Promise<RequestResult<T>> {

@@ -17,7 +17,7 @@ export const ContextPage = () => {
                    style={{ verticalAlign: 'top' }}
             />
             <button className='block w-[200px] bg-red-700 text-white mt-10 h-10 rounded'
-                    onClick={presenter.createContext}>Update
+                    onClick={presenter.updateContext}>Update
             </button>
         </div>
     )
