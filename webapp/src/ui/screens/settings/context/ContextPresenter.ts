@@ -14,7 +14,7 @@ export class ContextPresenter extends DefaultPresenter<ContextVM> {
     }
 
     setContext = context => {
-        this.updateModel({ context: context })
+        this.updateModel({...this.model, context: context })
         this.resetErrors()
     }
 

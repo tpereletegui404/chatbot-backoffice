@@ -7,7 +7,7 @@ export class HttpGetConfigurationHandler implements RequestHandler<GetConfigurat
     public constructor(private httpClient: HttpClient) {}
 
     async handle(request: GetConfiguration): Promise<Configuration> {
-        const response = await this.httpClient.get('/configuration')
+        const response = await this.httpClient.get('/configurations')
         return Configuration.fromJson(response.body)
     }
 }

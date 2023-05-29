@@ -9,13 +9,12 @@ import { FakeHttpResponse } from '../common/base/FakeHttpResponse'
 import { Configuration } from '../../../src/core/chatbotSettings/model/Configuration'
 
 it('getConfiguration get to /configuration', async () => {
-    when(httpClient.get('/configuration')).thenResolve(new FakeHttpResponse(chatbotConfiguration))
+    when(httpClient.get('/configurations')).thenResolve(new FakeHttpResponse(chatbotConfiguration))
 
     let response = await handler.handle(new GetConfiguration())
 
-    verify(httpClient.get('/configuration')).called()
-    expect(response.id).toEqual(chatbotConfiguration.id)
-    expect(response.apikey).toEqual(chatbotConfiguration.apikey)
+    verify(httpClient.get('/configurations')).called()
+    expect(response.apiKey).toEqual(chatbotConfiguration.apiKey)
     expect(response.context).toEqual(chatbotConfiguration.context)
     expect(response.temperature).toEqual(chatbotConfiguration.temperature)
     expect(response.topP).toEqual(chatbotConfiguration.topP)
@@ -31,7 +30,6 @@ beforeEach(() => {
 let httpClient: HttpClient
 let handler: HttpGetConfigurationHandler
 const chatbotConfiguration = new Configuration(
-    1,
     'apiKey123',
     'someContext',
     200,
