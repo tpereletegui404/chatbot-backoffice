@@ -3,34 +3,32 @@ package com.proyecto404.backoffice.e2e
 import com.google.gson.JsonParseException
 import com.nbottarini.asimov.cqbus.CQBus
 import com.nbottarini.asimov.cqbus.requests.Request
-import com.proyecto404.backoffice.e2e.testing.RequestBuilder
-import com.proyecto404.backoffice.http.HttpApp
 import com.proyecto404.backoffice.Core
+import com.proyecto404.backoffice.base.auth.NotAuthenticatedError
+import com.proyecto404.backoffice.base.auth.UnauthorizedAccessError
 import com.proyecto404.backoffice.base.data.jdbc.dataSource
 import com.proyecto404.backoffice.base.domain.errors.DomainError
 import com.proyecto404.backoffice.base.domain.errors.NotFoundError
 import com.proyecto404.backoffice.base.http.server.HttpServer
 import com.proyecto404.backoffice.base.http.server.controllers.errors.ParameterError
+import com.proyecto404.backoffice.base.infrastructure.persistence.DatabaseInitializer
 import com.proyecto404.backoffice.base.integration.eventBus.InProcessEventBus
 import com.proyecto404.backoffice.base.transactions.Transaction
-import com.proyecto404.backoffice.base.infrastructure.persistence.DatabaseInitializer
-import com.proyecto404.backoffice.base.auth.NotAuthenticatedError
-import com.proyecto404.backoffice.base.auth.UnauthorizedAccessError
+import com.proyecto404.backoffice.e2e.testing.RequestBuilder
+import com.proyecto404.backoffice.http.HttpApp
 import io.mockk.every
 import io.mockk.mockk
 import org.hamcrest.CoreMatchers.equalTo
 import org.junit.jupiter.api.AfterEach
 import org.junit.jupiter.api.BeforeEach
-import org.junit.jupiter.api.Disabled
 import org.junit.jupiter.api.Tag
 import org.junit.jupiter.api.Test
 
-@Disabled
 @Tag("slow")
 class ErrorMappingsTest {
     @Test
     fun `not authenticated`() {
-        every { cqBus.execute(any<Request<*>>(), any()) } throws com.proyecto404.backoffice.base.auth.NotAuthenticatedError()
+        every { cqBus.execute(any<Request<*>>(), any()) } throws NotAuthenticatedError()
 
         val response = execSomeCommand()
 
@@ -41,7 +39,7 @@ class ErrorMappingsTest {
 
     @Test
     fun `unauthorized access`() {
-        every { cqBus.execute(any<Request<*>>(), any()) } throws com.proyecto404.backoffice.base.auth.UnauthorizedAccessError()
+        every { cqBus.execute(any<Request<*>>(), any()) } throws UnauthorizedAccessError()
 
         val response = execSomeCommand()
 
@@ -119,7 +117,7 @@ class ErrorMappingsTest {
     }
 
     private fun createCoreConfig(): Core.Config {
-        val dataSource = com.proyecto404.backoffice.base.data.jdbc.dataSource {
+        val dataSource = dataSource {
             dbCredentialsFromEnv("TEST_DB")
             simpleDbConnections()
             simpleTransactions()
@@ -132,7 +130,7 @@ class ErrorMappingsTest {
         )
     }
 
-    private fun execSomeCommand() = RequestBuilder(baseUrl).delete("/accounting/transactions/1").exec()
+    private fun execSomeCommand() = RequestBuilder(baseUrl).get("/configuration").exec()
 
     private val port = 6061
     private val baseUrl = "http://localhost:$port"
