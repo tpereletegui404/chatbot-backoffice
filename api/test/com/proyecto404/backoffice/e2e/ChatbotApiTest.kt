@@ -15,7 +15,7 @@ import org.junit.jupiter.api.Test
 class ChatbotApiTest: BaseApiTest() {
     @Test
     fun create() {
-        val response = request().asAnonymous().post("/configuration", addContextJson).exec()
+        val response = request().asAnonymous().post("/configurations", addContextJson).exec()
 
         response.assertThat().succeeds(201)
         val chatbot = getChatbotConfiguration()
@@ -26,7 +26,7 @@ class ChatbotApiTest: BaseApiTest() {
     fun get() {
         val configuration = addChatbotConfiguration()
 
-        val response = request().asAnonymous().get("/configuration").exec()
+        val response = request().asAnonymous().get("/configurations").exec()
 
         response.assertThat().succeeds(200)
         assertEqualsResponseBody(response, configuration)
@@ -36,7 +36,7 @@ class ChatbotApiTest: BaseApiTest() {
     fun update() {
         addChatbotConfiguration()
 
-        val response = request().asAnonymous().put("/configuration", addContextJson).exec()
+        val response = request().asAnonymous().put("/configurations", addContextJson).exec()
 
         response.assertThat().succeeds(200)
         val updated = getChatbotConfiguration()

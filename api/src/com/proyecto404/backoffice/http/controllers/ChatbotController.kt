@@ -10,9 +10,9 @@ import com.proyecto404.backoffice.core.app.UpdateConfiguration
 
 class ChatbotController(dispatcher: HttpCQDispatcher): CQController(dispatcher) {
     override fun registerRoutesIn(http: RouteRegister) {
-        post<AddContext>(http, "/configuration/context", 200)
-        get<GetConfiguration>(http, "/configuration")
-        post<CreateConfiguration>(http, "/configuration", 201)
-        put<UpdateConfiguration>(http, "/configuration")
+        post<AddContext>(http, "/configurations/context", 200)
+        get<GetConfiguration>(http, "/configurations")
+        post<CreateConfiguration>(http, "/configurations", 201)
+        put<UpdateConfiguration>(http, "/configurations")
     }
 }

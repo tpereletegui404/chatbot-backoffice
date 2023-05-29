@@ -130,7 +130,7 @@ class ErrorMappingsTest {
         )
     }
 
-    private fun execSomeCommand() = RequestBuilder(baseUrl).get("/configuration").exec()
+    private fun execSomeCommand() = RequestBuilder(baseUrl).get("/configurations").exec()
 
     private val port = 6061
     private val baseUrl = "http://localhost:$port"
